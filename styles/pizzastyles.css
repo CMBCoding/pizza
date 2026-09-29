@@ -1,0 +1,25 @@
+* {
+    /* margin: 0; */
+    /* box-sizing: border-box; */
+
+}
+
+body {
+    background-color: #8b0000;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#main {
+    background-color: #ffffff;
+    width: 70%;
+    margin: 0 auto; /* This centers the div */
+    padding: 0 1rem 2rem 1rem;
+}
+
+#header {
+    background-color: #f0efef;
+    border-radius: .25rem;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+}
