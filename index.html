@@ -8,16 +8,19 @@
     <link rel="shortcut icon" href="images/favicon.svg" type="image/x-icon">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles/pizzastyles.css">
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Main -->
     <div id="main">
-
         <!-- Header -->
         <div id="header">
             <img src="images/pizzaguy.webp" alt="radical pizza guy mascot">
-            <h1>Welcome to [Name Pending]</h1>
-            <h2>Serving GRC Students for over 50 years!</h2>
+            <h1 class="rad">Welcome to Radical Pies!</h1>
+            <h2>Serving slices since '85!</h2>
             <hr>
             <p>We make the best pizza in town. Visit us today!</p>
             <a href="#" id="contact-btn" role="button">Contact Us</a>
@@ -28,19 +31,19 @@
             <!-- Contact Info -->
             <fieldset>
                 <legend>Contact Info</legend>
-                <label for="fname">First Name</label>
+                <label for="fname">First Name:</label>
                 <input type="text" name="fname" id="fname">
 
-                <label for="lname">Last Name</label>
+                <label for="lname">Last Name:</label>
                 <input type="text" name="lname" id="lname">
 
-                <label for="email">Email</label>
+                <label for="email">Email:</label>
                 <input type="email" name="email" id="email">
             </fieldset>
 
             <!-- Pickup or Delivery -->
              <fieldset>
-                <legend>Pickup or Delivery</legend>
+                <legend>Select Pickup or Delivery</legend>
                 
                 <label for="pickup">
                     <input type="radio" name="method" id="pickup" value="pickup">
@@ -53,6 +56,51 @@
                 </label>
 
              </fieldset>
+
+             <!-- Toppings -->
+              <fieldset>
+                <legend>Select Toppings</legend>
+                <label for="pep">
+                    <input type="checkbox" name="topppings[]" id="pepperoni" value="pepperoni">
+                    Poppin' Pepperoni
+                </label>
+                <label for="sausage">
+                    <input type="checkbox" name="topppings[]" id="sausage" value="sausage">
+                    Sizzlin' Sausage
+                </label>
+                <label for="jalapenos">
+                    <input type="checkbox" name="topppings[]" id="jalapenos" value="jalapenos">
+                    Jumpin' Jalapenos
+                </label>
+                <label for="olives">
+                    <input type="checkbox" name="topppings[]" id="olives" value="olives">
+                    Awesome Olives
+                </label>
+                <label for="bacon">
+                    <input type="checkbox" name="topppings[]" id="bacon" value="bacon">
+                    Bodacious Bacon
+                </label>
+                <label for="mushrooms">
+                    <input type="checkbox" name="topppings[]" id="mushrooms" value="mushrooms">
+                    Maximum Mushrooms
+                </label>
+              </fieldset>
+
+              <!-- Select Pizza Size -->
+              <fieldset>
+                <legend>Select Pizza Size</legend>
+                <select name="size" id="size">
+                    <option value="none">-- Select a Size --</option>
+                    <option value="small">Personal -- 8in -- 6 slices</option>
+                    <option value="medium">Medium -- 12in -- 8 slices</option>
+                    <option value="large">Large -- 14in - 10 slices</option>
+                    <option value="extra-large">Mondo -- 18in -- 12 slices</option>
+                </select>
+              </fieldset>
+
+              <!-- Comment Field -->
+               <label for="comment">Comments</label>
+               <textarea name="comment" id="" rows="5" id="comment"></textarea>
 
             <!-- Order button -->
             <button type="submit" id="order-button">Place Order</button>
