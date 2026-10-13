@@ -77,6 +77,11 @@ label {
     padding-bottom: 5px;
 }
 
+.err {
+    color: darkred;
+    display: none;
+}
+
 legend {
     color: var(--cheese-orange);
     font-variant: small-caps;
