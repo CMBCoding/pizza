@@ -34,7 +34,7 @@
             <fieldset>
                 <legend>Contact Info</legend>
                 <label for="fname">First Name:</label>
-                <input type="text" name="fname" id="fname">
+                <input type="text" name="fname" id="fname" placeholder="Guy">
                 <span class="err" id="err-fname">First name is required</span>
 
                 <label for="lname">Last Name:</label>
@@ -44,6 +44,7 @@
 
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email" placeholder="GuyMann@email.com">
+                <span class="err" id="err-email">Email is required</span>
             </fieldset>
 
             <!-- Pickup or Delivery -->
@@ -59,7 +60,7 @@
                     <input type="radio" name="method" id="delivery" value="delivery">
                     Delivery
                 </label>
-
+                <span class="err" id="err-d-or-p">Please select Delivery or Pickup</span>
              </fieldset>
 
              <!-- Toppings -->
@@ -89,6 +90,7 @@
                     <input type="checkbox" name="topppings[]" id="mushrooms" value="mushrooms">
                     Maximum Mushrooms
                 </label>
+                <span class="err" id="err-toppings">Please select at least one topping</span>
               </fieldset>
 
               <!-- Select Pizza Size -->
@@ -101,6 +103,7 @@
                     <option value="large">Large -- 14in - 10 slices</option>
                     <option value="extra-large">Mondo -- 18in -- 12 slices</option>
                 </select>
+                <span class="err" id="err-size">Please select a size for your pizza</span>
               </fieldset>
 
               <!-- Comment Field -->

@@ -78,7 +78,10 @@ label {
 }
 
 .err {
-    color: darkred;
+    margin-top: 0;
+    background-color: var(--pepperoni-red);
+    color: var(--cheese-orange);
+    font-weight: bold;
     display: none;
 }
 
