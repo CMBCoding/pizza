@@ -29,18 +29,34 @@ document.getElementById("pizza-form").onsubmit = () => {
     }
 
     //Validate the delivery option
-    let pickup = document.getElementById("pickup");
-    let delivery = document.getElementById("delivery");
-    let optionChosen = false; //The default state is that no option is checke
+    // let pickup = document.getElementById("pickup");
+    // let delivery = document.getElementById("delivery");
+    // let optionChosen = false; //The default state is that no option is checke
+    
+    // //If either of the options is checked
+    // if ((pickup.checked === true) || (delivery.checked === true)) {
+    //     optionChosen = true; //Return optionChosen as true
+    // } else {
+    //     //Display the error
+    //     document.getElementById("err-d-or-p").style.display = "block";
+    //     isValid = false;
+    // }
 
-    //If either of the options is checked
-    if ((pickup.checked === true) || (delivery.checked === true)) {
-        optionChosen = true; //Return optionChosen as true
-    } else {
-        //Display the error
+    /* Validate the method, alternative. Better for multiple options (> 2)*/
+    let methodSelected = false;
+    let methodButtons = document.getElementsByName("method");
+    for (let i = 0; i < methodButtons.length; i++) {
+        if (methodButtons[i].checked) {
+            methodSelected = true;
+        }
+    } 
+
+    if (!methodSelected) {
         document.getElementById("err-d-or-p").style.display = "block";
         isValid = false;
     }
+
+
 
     //Validate the options
     //Grab all the toppings, assign them to a toppigns variable
@@ -57,7 +73,7 @@ document.getElementById("pizza-form").onsubmit = () => {
     //Validate the size
     let pizzaSize = document.getElementById("size").value;
 
-    //If not option for the pizza size is selected, throw the display error.
+    //If no option for the pizza size is selected, throw the display error.
     if (pizzaSize === "none") {
         document.getElementById("err-size").style.display = "block";
     }
