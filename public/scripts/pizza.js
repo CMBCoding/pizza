@@ -56,8 +56,6 @@ document.getElementById("pizza-form").onsubmit = () => {
         isValid = false;
     }
 
-
-
     //Validate the options
     //Grab all the toppings, assign them to a toppigns variable
     let toppings = document.querySelectorAll('input[name="topppings[]"]:checked');
@@ -80,9 +78,6 @@ document.getElementById("pizza-form").onsubmit = () => {
 
     //Do not submit form if data is invalid
     return isValid;
-
-
-    
 
 };
 
