@@ -1,7 +1,7 @@
 //Import the module
 import express from 'express';
 
-//Create an instance of an express application
+//Create an instance of an express application (Creates an express object)
 const app = express();
 
 //Define a port number for our server to listen on
@@ -13,10 +13,9 @@ const orders = [];
 //Enable static file serving
 app.use(express.static('public'));
 
-//Add "middleware" to allow the app to parse the form data
-//Access form data through req.body
+/* Add "middleware" to allow the app to parse (read) the form data
+Access form data through req.body */
 app.use(express.urlencoded({extended: true}));
-
 
 //Define a default route ("/")
 app.get('/', (req, res) => {
@@ -69,7 +68,12 @@ app.post('/submit-order', (req, res) => {
 
 });
 
-//Start the server on the designated port
+//Add an admin route
+app.get('/admin', (req, res) => {
+    res.send(orders);
+})
+
+//Start the server on the designated port by telling the app to "listen" for the PORT
 app.listen(PORT, () => {
     console.log(`Server running in port http://localhost:${PORT}`);
 })
