@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles/pizzastyles.css">
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap" rel="stylesheet">
+    <title>Admin Page</title>
+</head>
+<body>
+    <header>
+        <h1 class="rad" id="confirm-header">Orders</h1>
+    </header>
+    <main id="main">
+        <!-- For each object in the orders array,  -->
+        <table id="order-table" class="display">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Toppings</th>
+                <th>Size</th>
+                <th>Comments</th>
+                <th>Method</th>
+                <th>Date/Time</th>
+            </tr>
+
+        </thead>
+        <% orders.forEach(order => { %>
+            <tr>
+                <td><%= order.fname %> <%= order.lname %></td>
+                <td><%= order.email %></td>
+                <td><%= order.toppings %></td>
+                <td><%= order.size %></td>
+                <td><%= order.comment %></td>
+                <td><%= order.method %></td>
+                <th><%= order.timestamp.toLocaleString() %></th>
+            </tr>
+        <% }); %>
+    
+        </table>
+    </main>
+</body>
+</html>

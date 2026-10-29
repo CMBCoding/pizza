@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles/pizzastyles.css">
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap" rel="stylesheet">
+    <title>Confirm</title>
+</head>
+<body>
+    <header>
+        <h1 class="rad" id="confirm-header">Thank you for your Order!</h1>
+    </header>
+    <main id="main">
+        <p>Thank you for your order, <%= order.fname %>!</p>
+        <h2>Order Summary</h2>
+        <p>Name: <%= order.fname %> <%= order.lname %></p>
+        <p>Email: <%= order.email %> </p>
+        <p>Pickup or Delivery: <%= order.method %></p>
+        <p>Toppings: <%= order.toppings %></p>
+        <p>Size: <%= order.size %></p>
+        <p>Comment: <%= order.comment %></p>
+        <p>Date and Time: <%= order.timestamp.toLocaleString() %></p>
+    </main>
+    
+</body>
+</html>

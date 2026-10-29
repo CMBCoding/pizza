@@ -58,7 +58,7 @@ document.getElementById("pizza-form").onsubmit = () => {
 
     //Validate the options
     //Grab all the toppings, assign them to a toppigns variable
-    let toppings = document.querySelectorAll('input[name="topppings[]"]:checked');
+    let toppings = document.querySelectorAll('input[name="toppings[]"]:checked');
 
     //If the length of toppings NodeList is 0, then it contain no elements, 
     // Meaning, that not option is selected.

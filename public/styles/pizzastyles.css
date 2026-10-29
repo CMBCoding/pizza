@@ -28,6 +28,9 @@ body {
     width: 70%;
     margin: 0 auto; /* This centers the div */
     padding: 0 1rem 2rem 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
 }
 
 #header {
@@ -35,6 +38,11 @@ body {
     border-radius: .25rem;
     padding: 2rem 1rem;
     margin-bottom: 2rem;
+}
+
+#confirm-header {
+    text-align: center;
+    font-size: 4rem;
 }
 
 #header img {

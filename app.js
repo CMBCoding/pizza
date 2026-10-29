@@ -17,10 +17,14 @@ app.use(express.static('public'));
 Access form data through req.body */
 app.use(express.urlencoded({extended: true}));
 
+//Set the view engine to ejs
+app.set('view engine', 'ejs');
+
 //Define a default route ("/")
 app.get('/', (req, res) => {
     // res.send('Welcome to Radical Pies!');
-    res.sendFile(`${import.meta.dirname}/views/home.html`);
+    res.render('home'); //Send the page in response, render the ejs page named 'home'
+    // res.sendFile(`${import.meta.dirname}/views/home.html`);
 });
 
 //Add a contact route to display a contact view page
@@ -28,10 +32,11 @@ app.get('/contact-us', (req, res) => {
     res.sendFile(`${import.meta.dirname}/views/contact.html`);
 });
 
-//Add a confirm order route to display the confirm page
-app.get('/confirm-order', (req, res) => {
-    res.sendFile(`${import.meta.dirname}/views/confirm.html`);
-});
+// //Add a confirm order route to display the confirm page
+// app.get('/confirm-order', (req, res) => {
+//     res.render('confirm');
+//     // res.sendFile(`${import.meta.dirname}/views/confirm.html`);
+// });
 
 //Add a menu route te display the menu page
 app.get('/menu', (req, res) => {
@@ -64,13 +69,15 @@ app.post('/submit-order', (req, res) => {
     console.log(orders);
 
     //Display the confirmation page
-    res.sendFile(`${import.meta.dirname}/views/confirm.html`)
+    res.render('confirm', {order});
+    // res.sendFile(`${import.meta.dirname}/views/confirm.html`)
 
 });
 
 //Add an admin route
-app.get('/admin', (req, res) => {
-    res.send(orders);
+app.get('/admin', (req, res) => {  
+    res.render('admin', {orders}); 
+    // res.send(orders);
 })
 
 //Start the server on the designated port by telling the app to "listen" for the PORT
