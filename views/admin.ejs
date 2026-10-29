@@ -12,6 +12,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap" rel="stylesheet">
     <title>Admin Page</title>
+    <!-- Add data tables resources -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script> 
+    <script src="https://cdn.datatables.net/3.1.4/js/dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/3.1.4/css/dataTables.dataTables.min.css">
 </head>
 <body>
     <header>
@@ -20,31 +24,34 @@
     <main id="main">
         <!-- For each object in the orders array,  -->
         <table id="order-table" class="display">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Toppings</th>
-                <th>Size</th>
-                <th>Comments</th>
-                <th>Method</th>
-                <th>Date/Time</th>
-            </tr>
-
-        </thead>
-        <% orders.forEach(order => { %>
-            <tr>
-                <td><%= order.fname %> <%= order.lname %></td>
-                <td><%= order.email %></td>
-                <td><%= order.toppings %></td>
-                <td><%= order.size %></td>
-                <td><%= order.comment %></td>
-                <td><%= order.method %></td>
-                <th><%= order.timestamp.toLocaleString() %></th>
-            </tr>
-        <% }); %>
-    
+            <tbody>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Toppings</th>
+                        <th>Size</th>
+                        <th>Comments</th>
+                        <th>Method</th>
+                        <th>Date/Time</th>
+                    </tr>
+                </thead>
+                <% orders.forEach(order => { %>
+                    <tr>
+                        <td><%= order.fname %> <%= order.lname %></td>
+                        <td><%= order.email %></td>
+                        <td><%= order.toppings %></td>
+                        <td><%= order.size %></td>
+                        <td><%= order.comment %></td>
+                        <td><%= order.method %></td>
+                        <th><%= order.timestamp.toLocaleString() %></th>
+                    </tr>
+                <% }); %>
+            </tbody>
         </table>
     </main>
+    <script>
+        new DataTable('#order-table');
+    </script>
 </body>
 </html>
