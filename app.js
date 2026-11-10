@@ -1,5 +1,21 @@
-//Import the module
+//Import the express module
 import express from 'express';
+
+//Import the mySQL module
+import mysql2 from 'mysql2';
+
+//Import .env
+import dotenv from 'dotenv';
+dotenv.config();
+
+//Create a connection pool
+const pool = mysql2.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
+}).promise();
 
 //Create an instance of an express application (Creates an express object)
 const app = express();
@@ -17,6 +33,8 @@ app.use(express.static('public'));
 Access form data through req.body */
 app.use(express.urlencoded({extended: true}));
 
+/* Add */
+
 //Set the view engine to ejs
 app.set('view engine', 'ejs');
 
@@ -25,6 +43,17 @@ app.get('/', (req, res) => {
     // res.send('Welcome to Radical Pies!');
     res.render('home'); //Send the page in response, render the ejs page named 'home'
     // res.sendFile(`${import.meta.dirname}/views/home.html`);
+});
+
+//Create a route to test the database
+app.get('/db-test', async(req, res) => {
+    try {
+        const orders = await pool.query('SELECT * FROM orders')
+        res.send(orders[0]);
+    } catch(err) {
+        console.error('Database error: ', err);
+        res.status(500).send('Database error occurred.')
+    }
 });
 
 //Add a contact route to display a contact view page
@@ -44,7 +73,7 @@ app.get('/menu', (req, res) => {
 });
 
 //Add a route to process a pizza orddr
-app.post('/submit-order', (req, res) => {
+app.post('/submit-order', async(req, res) => {
     console.log(req.body);
 
     // const order = {
@@ -60,23 +89,40 @@ app.post('/submit-order', (req, res) => {
 
     // Create a JSON object to store order data
     const order = req.body;
-    order['timestamp'] = new Date();
 
-    console.log(order);
+    //Define a SQL query to insert the new order
+    const sql = `INSERT INTO orders (fname, lname, email, size, method, toppings, comment)
+    VALUES(?, ?, ?, ?, ?, ?, ?)`;
 
-    //Add order object to orders array
-    orders.push(order);
-    console.log(orders);
+    //Create an array of parameters to plug into the sql statement from the order object.
+    const params = [
+        order.fname,
+        order.lname,
+        order.email,
+        order.size,
+        order.method,
+        order.toppings,
+        order.comment
+    ];
+
+    //Execute the query
+    const [result] = await pool.execute(sql, params);
 
     //Display the confirmation page
     res.render('confirm', {order});
-    // res.sendFile(`${import.meta.dirname}/views/confirm.html`)
-
 });
 
 //Add an admin route
-app.get('/admin', (req, res) => {  
-    res.render('admin', {orders}); 
+app.get('/admin', async(req, res) => {  
+    try {
+        const orders = await 
+            pool.query('SELECT * FROM orders') //Get the orders table from the pizza_db
+        console.log(orders[0]);
+            res.render('admin', {orders:orders[0]}); 
+    } catch(err) {
+        console.error('Database error: ', err);
+        res.status(500).send('Database error occurred.')
+    }
     // res.send(orders);
 })
 
