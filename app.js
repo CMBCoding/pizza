@@ -6,7 +6,7 @@ import mysql2 from 'mysql2';
 
 //Import .env
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config(); //Necessary to use dotenv.
 
 //Create a connection pool
 const pool = mysql2.createPool({
@@ -33,8 +33,6 @@ app.use(express.static('public'));
 Access form data through req.body */
 app.use(express.urlencoded({extended: true}));
 
-/* Add */
-
 //Set the view engine to ejs
 app.set('view engine', 'ejs');
 
@@ -46,6 +44,7 @@ app.get('/', (req, res) => {
 });
 
 //Create a route to test the database
+/*
 app.get('/db-test', async(req, res) => {
     try {
         const orders = await pool.query('SELECT * FROM orders')
@@ -54,7 +53,7 @@ app.get('/db-test', async(req, res) => {
         console.error('Database error: ', err);
         res.status(500).send('Database error occurred.')
     }
-});
+}); */
 
 //Add a contact route to display a contact view page
 app.get('/contact-us', (req, res) => {
@@ -90,9 +89,16 @@ app.post('/submit-order', async(req, res) => {
     // Create a JSON object to store order data
     const order = req.body;
 
+    order['timestamp'] = new Date(); //Get and store the timestamp.
+
+    //Convert the toppings array into a comma delimited string.
+    order.toppings = Array.isArray(order.toppings) ?
+        order.toppings.join(", ") : "";
+
     //Define a SQL query to insert the new order
     const sql = `INSERT INTO orders (fname, lname, email, size, method, toppings, comment)
-    VALUES(?, ?, ?, ?, ?, ?, ?)`;
+    VALUES(?, ?, ?, ?, ?, ?, ?)`;  //Values set to ? to prevent SQL injection. These are placeholders.
+    //The number of placeholders has to be equal to the number of columns in the datatable.
 
     //Create an array of parameters to plug into the sql statement from the order object.
     const params = [
@@ -106,7 +112,11 @@ app.post('/submit-order', async(req, res) => {
     ];
 
     //Execute the query
-    const [result] = await pool.execute(sql, params);
+    const [result] = await pool.execute(sql, params); //This is an SQL insert query.
+
+    //Get the id from the newly inserted row.
+    order.id = result.insertId;
+    console.log(`A new row was inserted with id ${order.id}`)
 
     //Display the confirmation page
     res.render('confirm', {order});
@@ -115,16 +125,17 @@ app.post('/submit-order', async(req, res) => {
 //Add an admin route
 app.get('/admin', async(req, res) => {  
     try {
-        const orders = await 
-            pool.query('SELECT * FROM orders') //Get the orders table from the pizza_db
-        console.log(orders[0]);
-            res.render('admin', {orders:orders[0]}); 
+        //Array destructuring gives us just the data from the query
+        const [orders] = await 
+            pool.query('SELECT * FROM orders ORDER BY timestamp DESC') //Get the orders table from the pizza_db
+        console.log(orders);
+            res.render('admin', {orders}); 
     } catch(err) {
         console.error('Database error: ', err);
         res.status(500).send('Database error occurred.')
     }
     // res.send(orders);
-})
+}) 
 
 //Start the server on the designated port by telling the app to "listen" for the PORT
 app.listen(PORT, () => {
