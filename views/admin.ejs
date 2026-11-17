@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap" rel="stylesheet">
     <title>Admin Page</title>
     <!-- Add data tables resources -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.7.1.js" defer></script> 
     <script src="https://cdn.datatables.net/3.1.4/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/4.1.1/js/dataTables.responsive.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/3.1.4/css/dataTables.dataTables.min.css">
@@ -23,6 +23,7 @@
         <h1 class="rad" id="confirm-header">Orders</h1>
     </header>
     <main id="main">
+        <a href="/logout" id="logout-button">Logout</a>
         <!-- For each object in the orders array,  -->
         <table id="order-table" class="display">
             <tbody>

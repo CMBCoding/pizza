@@ -8,6 +8,22 @@ import mysql2 from 'mysql2';
 import dotenv from 'dotenv';
 dotenv.config(); //Necessary to use dotenv.
 
+//Import express session
+import session from 'express-session';
+
+//Login function. Takes a request, response and next
+function requireLogin(req, res, next) {
+    //If the user is logged in...
+    if (req.session.loggedIn) {
+        //Proceed
+        next();
+    //Else...
+    } else {
+        //Redirect back to the login page
+        res.redirect('/login')
+    }
+}
+
 //Create a connection pool
 const pool = mysql2.createPool({
     host: process.env.DB_HOST,
@@ -33,6 +49,14 @@ app.use(express.static('public'));
 Access form data through req.body */
 app.use(express.urlencoded({extended: true}));
 
+//Create session middleware
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {maxAge: 1000 * 60 * 66}
+}))
+
 //Set the view engine to ejs
 app.set('view engine', 'ejs');
 
@@ -41,6 +65,35 @@ app.get('/', (req, res) => {
     // res.send('Welcome to Radical Pies!');
     res.render('home'); //Send the page in response, render the ejs page named 'home'
     // res.sendFile(`${import.meta.dirname}/views/home.html`);
+});
+
+//Define a route to the login page.
+/* 
+We pass error: null because ther is no error yet.
+login.ejs checks "if (error)", so the error must always be null
+*/
+app.get('/login', (req, res) => {
+    res.render('login', {error: null});
+})
+
+app.post('/login', (req, res) => {
+    //Get the values the user typed into the form
+    const username = req.body.username;
+    const password = req.body.password;
+    
+    //Compare the user submitted values to the the user and password stored in the .env file
+    if (username === process.env.ADMIN_USER && 
+        password === process.env.ADMIN_PASSWORD) {
+            //Correct! Remember that this user is logged in
+            req.session.loggedIn = true;
+
+            //Send them to the admin page
+            res.redirect('/admin')
+        } else {
+            //Wrong username or password. Show the form again
+            res.render('login', {error: 'Invalid username or password'})
+        }
+
 });
 
 //Create a route to test the database
@@ -123,7 +176,7 @@ app.post('/submit-order', async(req, res) => {
 });
 
 //Add an admin route
-app.get('/admin', async(req, res) => {  
+app.get('/admin', requireLogin, async(req, res) => {  
     try {
         //Array destructuring gives us just the data from the query
         const [orders] = await 
@@ -136,6 +189,17 @@ app.get('/admin', async(req, res) => {
     }
     // res.send(orders);
 }) 
+
+//Add an logout route
+/* req.session.destroy() deleters the session from the server
+    After, we redirect the user back to the login page.
+ */
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/login')
+    })
+})
 
 //Start the server on the designated port by telling the app to "listen" for the PORT
 app.listen(PORT, () => {

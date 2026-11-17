@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles/pizzastyles.css">
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap" rel="stylesheet">
+    <title>Pizza - Login</title>
+</head>
+<body>
+    <div id="main">
+        <h1 class="rad" >Admin</h1>
+        <!-- Only show the error message if there is one -->
+        <% if (error) { %>
+            <p class="login-error"><%= error %></p>
+        <% } %>
+            <form action="/login" method="post">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password</label>
+                <input type="text" name="password" id="password" required>
+
+                <button type="submit" id="login-button">Log in</button>
+            </form>
+
+    </div>
+    
+</body>
+</html>
